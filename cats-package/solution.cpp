@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 struct node {
     int id;
     node* parent;
@@ -19,27 +20,54 @@ struct node {
     }
 };
 
-vector<int> find_centers(vector<pair<int, int>>& graph) {
+vector<int> find_centers(vector<vector<int>>& graph) {
+    int vertex_count = graph.size();
 
-}
-// .first - текущий id
-// .second - id родителя
-node build_tree(vector<pair<int,int>>& graph, node& _node) {
-    for (pair<int,int> current : graph) {
+    vector<int> degree(vertex_count, 0);
+    vector<int> leaves;
 
-        if (current.first == _node.id) continue;
-
-        else if (current.second == _node.id){
-
-            node *child = new node(current.first, &_node);
-            _node.add_children({*child});
-
-            build_tree(graph, *child);
+    for (int i = 0; i < vertex_count; i++) {
+        degree[i] = graph[i].size();
+        if (degree[i] == 0 || degree[i] == 1) {
+            leaves.push_back(i);
+            degree[i] = 0;
         }
     }
+
+    int count = leaves.size();
+
+    while (count < vertex_count) {
+        vector<int> new_leaves;
+        for (int node : leaves) {
+            for (int neighbour : graph[node]) {
+                degree[neighbour] = degree[neighbour] - 1;
+                if (degree[neighbour] == 1) new_leaves.push_back(neighbour);
+            }
+            degree[node] = 0;
+        }
+        count += new_leaves.size();
+        leaves = new_leaves;
+    }
+    return leaves;
 }
 
-node root_tree(vector<pair<int, int>>& graph, int root_id) {
+node build_tree(vector<vector<int>>& graph, node& _node) {
+    for (int neighbour : graph[_node.id]) {
+        // игнорируем добавление ребра, указывающего обратно на родителя
+        if (_node.parent != nullptr && neighbour == _node.parent->id) {
+            continue;
+        }
+
+        node *child = new node(neighbour, &_node);
+        _node.add_children({*child});
+
+        build_tree(graph, *child);
+    }
+
+    return _node;
+}
+
+node root_tree(vector<vector<int>>& graph, int root_id) {
     node* root = new node(root_id);
     return build_tree(graph, *root);
 }
@@ -58,7 +86,7 @@ string encode(node& _node) {
     return '(' + result + ')';
 }
 
-bool is_isomorphic(vector<pair<int, int>>& a, vector<pair<int, int>>& b) {
+bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
     if (&a == nullptr && &b == nullptr) return true;
     if (&a == nullptr || &b == nullptr) return false;
 
@@ -75,21 +103,5 @@ bool is_isomorphic(vector<pair<int, int>>& a, vector<pair<int, int>>& b) {
         if (a_encoded == b_encoded) return true;
     }
     return false;
-}
-
-int main() {
-    int n;
-    vector<pair<int,int>> tree1(n);
-    vector<pair<int,int>> tree2(n);
-
-    for (int i = 0; i < n; i++) {
-        cin >> tree1[i].first >> tree1[i].second;
-    }
-
-    for (int i = 0; i < n; i++) {
-        cin >> tree2[i].first >> tree2[i].second;
-    }
-
-
 }
 
