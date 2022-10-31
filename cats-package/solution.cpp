@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 struct node {
     int id;
     node* parent;
@@ -103,5 +102,21 @@ bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
         if (a_encoded == b_encoded) return true;
     }
     return false;
+}
+
+int main() {
+    int n;
+    vector<pair<int,int>> tree1(n);
+    vector<pair<int,int>> tree2(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> tree1[i].first >> tree1[i].second;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cin >> tree2[i].first >> tree2[i].second;
+    }
+
+
 }
 
