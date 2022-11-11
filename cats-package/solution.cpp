@@ -1,5 +1,25 @@
+
 #include <bits/stdc++.h>
 using namespace std;
+
+struct node {
+    int id;
+    node* parent;
+    vector<node> children;
+
+    node(int id, node* parent) {
+        this->id = id;
+        this->parent = parent;
+    }
+
+    node(int data) : node(data,  nullptr){};
+
+    void add_children(const vector<node>& nodes) {
+        for (auto &node : nodes) {
+            this->children.push_back(node);
+        }
+    }
+};
 
 vector<int> find_centers(vector<vector<int>>& graph) {
     int vertex_count = graph.size();
@@ -31,20 +51,40 @@ vector<int> find_centers(vector<vector<int>>& graph) {
     }
     return leaves;
 }
-string encode(vector<vector<int>>& graph, int parent) {
-    vector<string> labels;
-    string tree_hash = "";
-    if (graph[parent].empty()) return "(0)";
-    else {
-        for (auto i : graph[parent]) {
-            { labels.push_back(encode(graph, i)); }
+
+node build_tree(vector<vector<int>>& graph, node& _node) {
+    for (int neighbour : graph[_node.id]) {
+        // игнорируем добавление ребра, указывающего обратно на родителя
+        if (_node.parent != nullptr && neighbour == _node.parent->id) {
+            continue;
         }
-        sort(labels.begin(), labels.end());
-        for (auto & label : labels) {
-            tree_hash += label;
-        }
+
+        node *child = new node(neighbour, &_node);
+        _node.add_children({*child});
+
+        build_tree(graph, *child);
     }
-    return '(' + tree_hash + ')';
+
+    return _node;
+}
+
+node root_tree(vector<vector<int>>& graph, int root_id) {
+    node* root = new node(root_id);
+    return build_tree(graph, *root);
+}
+
+string encode(node& _node) {
+    if (&_node == nullptr) return "";
+    vector<string> labels;
+    for(node child : _node.children) {
+        labels.push_back(encode(child));
+    }
+    sort(labels.begin(), labels.end());
+    string result = "";
+    for (string label : labels) {
+        result += label;
+    }
+    return '(' + result + ')';
 }
 
 bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
@@ -65,11 +105,7 @@ bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
     }
     return false;
 }
-int main() {
-    int n;
-    cin >> n;
-    vector<vector<int>> tree1(n), tree2(n);
-    addUndirectedEdge(tree1, 0, 1);
-    addUndirectedEdge(tree1, 2, 1);
-    cout << encode(tree1, 0);
-
+void addUndirectedEdge(vector<vector<int>>& graph, int id, int parent) {
+    graph[id].push_back(parent);
+    graph[parent].push_back(id);
+}
