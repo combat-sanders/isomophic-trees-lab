@@ -105,7 +105,7 @@ bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
     }
     return false;
 }
-void addUndirectedEdge(vector<vector<int>>& graph, int id, int parent) {
+void add_link(vector<vector<int>>& graph, int id, int parent) {
     graph[id].push_back(parent);
     graph[parent].push_back(id);
 }
