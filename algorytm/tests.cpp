@@ -1,8 +1,10 @@
 #include "solution.cpp"
+#include "generator.cpp"
 #include <bits/stdc++.h>
+#include <chrono>
 using namespace std;
-
-void SimpleBinaryTree() {
+using namespace std::chrono;
+void simple_binary_tree() {
     vector<vector<int>> tree1(4), tree2(4);
     add_link(tree1, 1, 0);
     add_link(tree1, 2, 0);
@@ -16,7 +18,7 @@ void SimpleBinaryTree() {
     cout << "BinaryTree OK" << endl;
 }
 
-void SimpleNonBinaryTree() {
+void simple_non_binary_tree() {
     vector<vector<int>> tree1(6), tree2(6);
 
     add_link(tree1, 1, 0);
@@ -35,7 +37,7 @@ void SimpleNonBinaryTree() {
     cout << "NonBinaryTree OK" << endl;
 }
 
-void SimpleSeveralPermutaions() {
+void simple_several_permutations() {
     vector<vector<int>> tree1(10), tree2(10);
 
     add_link(tree1, 1, 0);
@@ -62,10 +64,18 @@ void SimpleSeveralPermutaions() {
     cout << "SeveralPermutations OK" << endl;
 }
 
+void check_speed_of_1000_vertex() {
+    vector<vector<int>> tree1 = generate_tree(1000);
+    auto start = high_resolution_clock::now();
+    is_isomorphic(tree1, tree1);
+    auto stop = high_resolution_clock::now();
+    cout << "Time of detecting isomorphic -- " << duration_cast<milliseconds>(stop - start).count() << "ms";
+}
 
 int main () {
-    SimpleBinaryTree();
-    SimpleNonBinaryTree();
-    SimpleSeveralPermutaions();
+    simple_binary_tree();
+    simple_non_binary_tree();
+    simple_several_permutations();
 
+    check_speed_of_1000_vertex();
 }
