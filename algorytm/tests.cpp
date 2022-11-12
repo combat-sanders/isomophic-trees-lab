@@ -69,13 +69,29 @@ void check_speed_of_1000_vertex() {
     auto start = high_resolution_clock::now();
     is_isomorphic(tree1, tree1);
     auto stop = high_resolution_clock::now();
-    cout << "Time of detecting isomorphic -- " << duration_cast<milliseconds>(stop - start).count() << "ms";
+    cout << "1000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
 }
 
+void check_speed_of_10000_vertex() {
+    vector<vector<int>> tree1 = generate_tree(10000);
+    auto start = high_resolution_clock::now();
+    is_isomorphic(tree1, tree1);
+    auto stop = high_resolution_clock::now();
+    cout << "10000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
+}
+
+void check_speed_of_100000_vertex() {
+    vector<vector<int>> tree1 = generate_tree(100000);
+    auto start = high_resolution_clock::now();
+    is_isomorphic(tree1, tree1);
+    auto stop = high_resolution_clock::now();
+    cout << "100000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
+}
 int main () {
     simple_binary_tree();
     simple_non_binary_tree();
     simple_several_permutations();
-
     check_speed_of_1000_vertex();
+    check_speed_of_10000_vertex();
+    check_speed_of_100000_vertex();
 }
