@@ -1,25 +1,6 @@
-
 #include <bits/stdc++.h>
+#include "tree_node.h"
 using namespace std;
-
-struct node {
-    int id;
-    node* parent;
-    vector<node> children;
-
-    node(int id, node* parent) {
-        this->id = id;
-        this->parent = parent;
-    }
-
-    node(int data) : node(data,  nullptr){};
-
-    void add_children(const vector<node>& nodes) {
-        for (auto &node : nodes) {
-            this->children.push_back(node);
-        }
-    }
-};
 
 vector<int> find_centers(vector<vector<int>>& graph) {
     int vertex_count = graph.size();
