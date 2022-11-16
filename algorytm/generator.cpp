@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-
+#include <random>
 using namespace std;
 
 int rand(int a, int b) {
@@ -18,4 +18,19 @@ vector<vector<int>> generate_tree(int vertex_count) {
         matrix[vertex_to_pair].push_back(i);
     }
     return matrix;
+}
+
+node generate_isomorphic(node& root) {
+    if (root.children.empty()) return root;
+    else {
+        vector<int> id_list(root.children.size());
+        for (int i = 0; i < root.children.size(); i++) {
+            id_list[i] = root.children[i].id;
+        }
+        shuffle(id_list.begin(), id_list.end(), mt19937(random_device()()));
+        for (int i = 0; i < root.children.size(); i++) {
+            root.children[i].id = id_list[i];
+            return generate_isomorphic(root.children[i]);
+        }
+    }
 }
