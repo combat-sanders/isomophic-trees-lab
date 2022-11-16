@@ -1,4 +1,4 @@
-#include "solution.cpp"
+#include "isomorphic.cpp"
 #include "generator.cpp"
 #include <bits/stdc++.h>
 #include <chrono>
