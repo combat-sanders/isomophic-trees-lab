@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "isomorphic.h"
 using namespace std;
 
 int rand(int a, int b) {
@@ -18,6 +19,6 @@ vector<vector<int>> generate_tree(int vertex_count) {
     return matrix;
 }
 
-vector<vector<int>> generate_isomorphic(vector<vector<int>>& tree) {
+node generate_isomorphic(node& root) {
 
 }
