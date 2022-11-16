@@ -15,7 +15,7 @@ void simple_binary_tree() {
     add_link(tree2, 3, 1);
 
     assert(is_isomorphic(tree1, tree2) == 1);
-    cout << "BinaryTree OK" << endl;
+    cout << "\tBinary tree OK" << endl;
 }
 
 void simple_non_binary_tree() {
@@ -34,7 +34,7 @@ void simple_non_binary_tree() {
     add_link(tree2, 5, 2);
 
     assert(is_isomorphic(tree1, tree2) == 1);
-    cout << "NonBinaryTree OK" << endl;
+    cout << "\tNon-binary tree OK" << endl;
 }
 
 void simple_several_permutations() {
@@ -61,7 +61,7 @@ void simple_several_permutations() {
     add_link(tree2, 9, 3);
 
     assert(is_isomorphic(tree1, tree2) == 1);
-    cout << "SeveralPermutations OK" << endl;
+    cout << "\tSeveral permutations OK" << endl;
 }
 
 void check_speed_of_1000_vertex() {
@@ -69,7 +69,7 @@ void check_speed_of_1000_vertex() {
     auto start = high_resolution_clock::now();
     is_isomorphic(tree1, tree1);
     auto stop = high_resolution_clock::now();
-    cout << "1000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
+    cout << "\t1000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
 }
 
 void check_speed_of_10000_vertex() {
@@ -77,7 +77,7 @@ void check_speed_of_10000_vertex() {
     auto start = high_resolution_clock::now();
     is_isomorphic(tree1, tree1);
     auto stop = high_resolution_clock::now();
-    cout << "10000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
+    cout << "\t10000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
 }
 
 void check_speed_of_100000_vertex() {
@@ -85,12 +85,14 @@ void check_speed_of_100000_vertex() {
     auto start = high_resolution_clock::now();
     is_isomorphic(tree1, tree1);
     auto stop = high_resolution_clock::now();
-    cout << "100000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
+    cout << "\t100000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
 }
 int main () {
+    cout << endl << "---SIMPLE TESTS---" << endl << endl;
     simple_binary_tree();
     simple_non_binary_tree();
     simple_several_permutations();
+    cout << endl << "--SPEED RESULTS--" << endl << endl;
     check_speed_of_1000_vertex();
     check_speed_of_10000_vertex();
     check_speed_of_100000_vertex();
