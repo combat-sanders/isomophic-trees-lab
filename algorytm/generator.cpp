@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#define SWAP(a, b) ({__typeof__(a) t = a; a = b; b = t;})
 using namespace std;
 
 int rand(int a, int b) {
