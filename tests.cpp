@@ -1,5 +1,5 @@
-#include "isomorphic.cpp"
-#include "generator.cpp"
+#include "algorytm/isomorphic.h"
+#include "algorytm/generator.h"
 #include <bits/stdc++.h>
 #include <chrono>
 using namespace std;

@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "isomorphic.h"
+#include "generator.h"
 using namespace std;
 
 int rand(int a, int b) {
