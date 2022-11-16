@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "tree_node.h"
 using namespace std;
-
 vector<int> find_centers(vector<vector<int>>& graph) {
     int vertex_count = graph.size();
 
