@@ -22,7 +22,7 @@ $$\forall u,v \in V_{1} \quad (u,v) \in E_{1} \Leftrightarrow (\varphi(u), \varp
 
 **Определение.** ***Корневое дерево*** **(V,E,***r***)** это дерево (V,E), в котором определен корень r $\in$ V.
 
-**Определение.** ***Изоморфизмом корневых деревьев*** $T_{1}(V_{1},E_{1},r_{1})$ и $T_{2}(V_{2},E_{2},r_{2})$ называется биекция между наборами вершин $\varphi: V_{1} \leftarrow V_{2}$} такая что:
+**Определение.** ***Изоморфизмом корневых деревьев*** $T_{1}(V_{1},E_{1},r_{1})$ и $T_{2}(V_{2},E_{2},r_{2})$ называется биекция между наборами вершин $\varphi: V_{1} \leftarrow V_{2}$ такая что:
 $$\forall(u,v)\in V_{1} \quad (u,v)\in E_{1} \Leftrightarrow (\varphi(u),\varphi(v)) \in E_{2}\quad \fbox{$\varphi(r_{1} = r_{2})$} $$
 
 Так как корневые деревья дают нам гораздо больше информации о самих себя, нежели графы, то существует алгоритм, работающий за полиноминальное время.
@@ -138,8 +138,6 @@ function is_isomorphic(tree a, tree b):
 Как видно из примера, алгоритм последовательно кодирует каждый центр каждого дерева, затем лексикографически сортирует результаты. Одинаковые кодировки соответствуют изоморфным деревьям.
 
 # Реализация на С++
-Исходный код [здесь](https://github.com/cingetable/isomophic-trees-lab/blob/main/algorytm/isomorphic.cpp).
-
 ```
 struct node {
     int id;
@@ -178,11 +176,69 @@ struct node {
 ```is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b)``` - возвращает значение типа ```bool```, которое служит идентификатором изоморфизма. Принимает неориентированный граф (список смежности).
 
 
+Исходный код можно найти [здесь](https://github.com/cingetable/isomophic-trees-lab/blob/main/algorytm/isomorphic.cpp).
+
 # Тестирование
+[Ссылка на код](https://github.com/cingetable/isomophic-trees-lab/blob/main/tests.cpp)
 ## Ручное тестирование
+Пример ручного теста. 
+```
+void simple_non_binary_tree() {
+    vector<vector<int>> tree1(6), tree2(6);
+
+    add_link(tree1, 1, 0);
+    add_link(tree1, 2, 0);
+    add_link(tree1, 3, 0);
+    add_link(tree1, 4, 3);
+    add_link(tree1, 5, 3);
+
+    add_link(tree2, 1, 0);
+    add_link(tree2, 2, 0);
+    add_link(tree2, 3, 0);
+    add_link(tree2, 4, 2);
+    add_link(tree2, 5, 2);
+
+    assert(is_isomorphic(tree1, tree2) == 1);
+    cout << "\tNon-binary tree OK" << endl;
+}
+```
+Формат входных данных:
+* 0 $<=$ ```id``` $<$ ```tree.size()```
+* отсутствие циклов
+* обязательная связность
 ## Тестирование с использованием генератора
 ### Принцип работы генератора
-#### Генерация дерева, изоморфного данному
-### Анализ ассимптотики, с использованием ```<chrono>```
+Генератор работает по упрощенной модели Эршеда-Реньи, основанной на создании ребра, между 2-мя случайными вершинами.
+
+```
+vector<vector<int>> generate_tree(int vertex_count) {
+    vector<vector<int>> matrix(vertex_count);
+    for (int i = 1; i < matrix.size(); i++) {
+        int vertex_to_pair = rand(0, i - 1);
+        add_link(matrix, i, vertex_to_pair);
+    }
+    return matrix;
+}
+```
+
+Функция принимает в себя значение типа ```int``` - количество узлов в дереве. Далее в цикле от 1 до ```vertex_count``` функция случайным образом выбирает вершину ```[0, i - 1]``` и создает ребро между ними. Ассимптотика генерации составляет **O(n)**.
+
+Пример теста на изоморфизм сгенерированных деревьев.
+```
+void gen_test() {
+    vector<vector<int>> tree1 = generate_tree(1000);
+    vector<vector<int>> tree2 = generate_tree(1000);
+    cout << "\tGen Test OK, isomorphic "<< (bool)is_isomorphic(tree1, tree2) << endl;
+}
+```
+### Анализ ассимптотики
+
 # Заключение
 # Список источников
+1. http://tka4.org/materials/lib/Articles-Books/Numerical%20Algorithms/Graph/Ахо%20А.,%20Хопкрофт%20Дж.,%20Ульман%20Дж.%20Построение%20и%20анализ%20вычислительных%20алгоритмов.%20М.Мир%201979.pdf
+2. https://logic.pdmi.ras.ru/~smal/files/smal_jass08_slides.pdf
+3. https://en.wikipedia.org/wiki/Graph_isomorphism_problem
+4. https://logic.pdmi.ras.ru/~smal/files/smal_jass08.pdf
+5. https://www.geeksforgeeks.org/tree-isomorphism-problem/
+6. https://towardsdatascience.com/graph-theory-center-of-a-tree-a64b63f9415d
+
