@@ -14,8 +14,7 @@ vector<vector<int>> generate_tree(int vertex_count) {
     vector<vector<int>> matrix(vertex_count);
     for (int i = 1; i < matrix.size(); i++) {
         int vertex_to_pair = rand(0, i - 1);
-        matrix[i].push_back(vertex_to_pair);
-        matrix[vertex_to_pair].push_back(i);
+        add_link(matrix, i, vertex_to_pair);
     }
     return matrix;
 }
