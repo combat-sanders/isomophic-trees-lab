@@ -64,6 +64,14 @@ void simple_several_permutations() {
     cout << "\tSeveral permutations OK" << endl;
 }
 
+void gen_test() {
+   for (int i = 0; i < 100; i++) {
+       int vertex_count = rand();
+        vector<vector<int>> tree1 = generate_tree(vertex_count);
+        vector<vector<int>> tree2 = generate_tree(vertex_count);
+        cout << "\t Test " << i + 1 <<" OK, isomorphism " << (is_isomorphic(tree1, tree2) ? "found" : "not found") <<" vertex count is  " << vertex_count << endl;
+    }
+}
 void check_speed_of_1000_vertex() {
     vector<vector<int>> tree1 = generate_tree(1000);
     auto start = high_resolution_clock::now();
@@ -87,11 +95,15 @@ void check_speed_of_100000_vertex() {
     auto stop = high_resolution_clock::now();
     cout << "\t100000 vertex speed -- " << duration_cast<milliseconds>(stop - start).count() << "ms" << endl;
 }
+
+
 int main () {
     cout << endl << "---SIMPLE TESTS---" << endl << endl;
     simple_binary_tree();
     simple_non_binary_tree();
     simple_several_permutations();
+    cout << endl << "--GEN TESTS--" << endl << endl;
+    gen_test();
     cout << endl << "--SPEED RESULTS--" << endl << endl;
     check_speed_of_1000_vertex();
     check_speed_of_10000_vertex();
