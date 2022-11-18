@@ -137,11 +137,52 @@ function is_isomorphic(tree a, tree b):
 
 Как видно из примера, алгоритм последовательно кодирует каждый центр каждого дерева, затем лексикографически сортирует результаты. Одинаковые кодировки соответствуют изоморфным деревьям.
 
-# Реализация
+# Реализация на С++
+Исходный код [здесь](https://github.com/cingetable/isomophic-trees-lab/blob/main/algorytm/isomorphic.cpp).
+
+```
+struct node {
+    int id;
+    node* parent;
+    std::vector<node> children;
+    node(int id, node* parent) {
+        this->id = id;
+        this->parent = parent;
+    }
+    node(int data) : node(data,  nullptr){};
+
+    void add_children(const vector<node>& nodes) {
+        for (auto node : nodes) {
+            children.push_back(node);
+        }
+    }
+};
+``` 
+Структура узла дерева. Имитирует ориентированный граф. 
+
+* ```id``` - идентификатор узла
+* ```parent``` - указатель на родителя
+* ```children``` - список детей
+* ```add_children(const vector<node>& nodes)``` - добавление детей.
+
+```vector<int> find_centers(vector<vector<int>>& graph)``` - поиск центра дерева. принимает на вход список смежности, возвращает список id центров дерева.
+
+```build_tree(vector<vector<int>>& graph, node& _node)``` - построение дерева
+
+```root_tree(vector<vector<int>>& graph, int root_id)``` - построение дерева, где корень - выбранный ```id```
+
+```encode(node& _node)``` - функция кодирования дерева. В параметры следует передавать корень дерева, представленный в виде узла.
+
+```add_link(vector<vector<int>>& graph, int id, int parent)``` - создает неориентированное ребро. Служит для тестирования.
+
+```is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b)``` - возвращает значение типа ```bool```, которое служит идентификатором изоморфизма. Принимает неориентированный граф (список смежности).
+
+
 # Тестирование
 ## Ручное тестирование
 ## Тестирование с использованием генератора
 ### Принцип работы генератора
 #### Генерация дерева, изоморфного данному
 ### Анализ ассимптотики, с использованием ```<chrono>```
-
+# Заключение
+# Список источников
