@@ -1,22 +1,34 @@
 #include <bits/stdc++.h>
-
+#include "isomorphic.h"
 using namespace std;
-struct node {
-    int id;
-    node* parent;
-    std::vector<node> children;
-    node(int id, node* parent) {
-        this->id = id;
-        this->parent = parent;
-    }
-    node(int data) : node(data,  nullptr){};
+node::node(int id, node* parent) {
+    this->id = id;
+    this->parent = parent;
+}
 
-    void add_children(const vector<node>& nodes) {
-        for (auto node : nodes) {
-            children.push_back(node);
+node::node(int data) : node(data, nullptr){};
+
+void node::add_children(const vector<node>& nodes) {
+    for (auto node : nodes) {
+        children.push_back(node);
+    }
+}
+
+void add_link(vector<vector<int>>& graph, int id, int parent) {
+    graph[id].push_back(parent);
+    graph[parent].push_back(id);
+};
+
+vector<vector<int>> to_adj(vector<int>& tree) {
+    std::vector<std::vector<int>> adj_list(tree.size());
+    for (int i = 0; i < tree.size(); i++) {
+        if (tree[i] != -1) {
+            add_link(adj_list, i, tree[i]);
         }
     }
+    return adj_list;
 };
+
 vector<int> find_centers(vector<vector<int>>& graph) {
     int vertex_count = graph.size();
 
@@ -83,9 +95,11 @@ string encode(node& _node) {
     return '(' + result + ')';
 }
 
-bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
-    if (&a == nullptr && &b == nullptr) return true;
-    if (&a == nullptr || &b == nullptr) return false;
+bool is_isomorphic(vector<int>& _a, vector<int>& _b) {
+
+    vector<vector<int>> a = to_adj(_a);
+    vector<vector<int>> b = to_adj(_b);
+    if (a.size() != b.size()) return false;
 
     vector<int> a_centers = find_centers(a);
     vector<int> b_centers = find_centers(b);
@@ -101,7 +115,4 @@ bool is_isomorphic(vector<vector<int>>& a, vector<vector<int>>& b) {
     }
     return false;
 }
-void add_link(vector<vector<int>>& graph, int id, int parent) {
-    graph[id].push_back(parent);
-    graph[parent].push_back(id);
-}
+
