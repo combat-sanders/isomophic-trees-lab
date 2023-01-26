@@ -11,7 +11,7 @@ using namespace std;
 using namespace std::chrono;
 
 void launch_speed_results() {
-    for (int i = 1000; i < 1000000; i += 10000) {
+    for (int i = 1000; i < 1000000; i += 5000) {
         vector<int> tree1 = generate_tree(i);
         vector<int> tree2 = generate_tree(i);
         auto start = high_resolution_clock::now();

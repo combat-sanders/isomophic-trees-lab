@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(isomorphic-trees-lab)
 include_directories(src)
 
-set(SOURCE_EXE main.cpp gen/generator.h speed_test/speed_test.cpp speed_test/speed_test.h)
+set(SOURCE_EXE main.cpp cats_package/solution.cpp)
 
 include_directories(src test gen speed_test)
 

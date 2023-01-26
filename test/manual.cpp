@@ -69,6 +69,7 @@ void ten_node_not_iso() {
 }
 
 
+
 void run_manual() {
     // OK если деревья изоморфны
     one_node();
@@ -81,4 +82,5 @@ void run_manual() {
     different_count();
     five_node_not_iso();
     ten_node_not_iso();
+
 }
