@@ -7,7 +7,4 @@
 
 #endif //ISOMOPHIC_TREES_LAB_MANUAL_H
 
-void one_node();
-void two_node();
-void three_node();
 void run_manual();

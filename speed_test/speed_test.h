@@ -6,3 +6,5 @@
 #define ISOMORPHIC_TREES_LAB_SPEED_TEST_H
 
 #endif //ISOMORPHIC_TREES_LAB_SPEED_TEST_H
+
+void launch_speed_results();
