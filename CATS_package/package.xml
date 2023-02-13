@@ -1,0 +1,26 @@
+<CATS version="1.4">
+    <Problem title="Изоморфизм деревьев" lang="ru" tlimit="1" mlimit="128" author="bazdukov.va" inputFile="*STDIN" outputFile="*STDOUT">
+        <Keyword code="alg.graph.tree"/>
+        <ProblemStatement>
+            <p>Деревья называются изоморфными имеют одинаковую структуру. Вам нужно понять, изоморфны ли 2 дерева</p>
+        </ProblemStatement>
+        <InputFormat>
+            <p>В первой строке входного файла дано целое число n - количество вершин. В следующих 2 строках записаны n чисел - деревья, где число - id родителя, а его индекс - собственный id</p>
+        </InputFormat>
+        <OutputFormat>
+            <p>0 или 1, в зависимости от изоморфности деревьев</p>
+        </OutputFormat>
+        <Import type="checker" guid="std.nums"/>
+        <Solution name="solution" src="solution.cpp" de_code="102"/>
+        <Sample rank="1">
+            <SampleIn src="tests/%n.in"/>
+            <SampleOut src="tests/%n.out"/>
+        </Sample>
+        <Test rank="1-8">
+            <In src="tests/%n.in"/>
+        </Test>
+        <Test rank="1-8">
+            <Out use="solution"/>
+        </Test>
+    </Problem>
+</CATS>

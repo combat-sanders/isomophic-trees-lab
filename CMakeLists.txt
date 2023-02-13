@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(isomorphic-trees-lab)
 include_directories(src)
 
-set(SOURCE_EXE main.cpp cats_package/solution.cpp)
+set(SOURCE_EXE main.cpp CATS_package/solution.cpp)
 
 include_directories(src test gen speed_test)
 

@@ -1,8 +1,17 @@
 #include <bits/stdc++.h>
-#include "isomorphic.h"
 using namespace std;
 
-double average;
+struct node {
+    int id;
+    node* parent;
+    std::vector<node> children;
+    node(int id, node* parent);
+    node(int data);
+
+
+    void add_children(const vector<node>& nodes);
+};
+
 node::node(int id, node* parent) {
     this->id = id;
     this->parent = parent;
@@ -136,7 +145,19 @@ bool is_isomorphic(vector<int>& _a, vector<int>& _b) {
     return false;
 }
 
+int main() {
+    int n;
+    cin >> n;
+    std::vector<int> tree1(n);
+    std::vector<int> tree2(n);
 
+    for (int i = 0; i < n; i++) {
+        cin >> tree1[i];
+    }
 
+    for (int i = 0; i < n; i++) {
+        cin >> tree2[i];
+    }
 
-
+    cout << is_isomorphic(tree1, tree2);
+}

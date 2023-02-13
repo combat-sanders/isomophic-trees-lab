@@ -11,6 +11,7 @@
 
 using namespace std;
 
+extern double average;
 struct node {
     int id;
     node* parent;

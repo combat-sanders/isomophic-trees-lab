@@ -15,8 +15,7 @@ int rand(int a, int b) {
 vector<int> generate_tree(int vertex_count) {
     vector<int> tree(vertex_count, -1);
     for (int i = 1; i < tree.size(); i++) {
-        int vertex = rand(0, i - 1);
-        tree[i] = vertex;
+        tree[i] = i - 1;
     }
     return tree;
 }

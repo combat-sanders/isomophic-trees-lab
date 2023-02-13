@@ -17,6 +17,7 @@ void launch_speed_results() {
         auto start = high_resolution_clock::now();
         is_isomorphic(tree1, tree2);
         auto stop = high_resolution_clock::now();
-        cout << i << ' ' << duration_cast<milliseconds>(stop - start).count() << endl;
+        cout << fixed << setprecision(10);
+        cout << i << ' ' << duration_cast<milliseconds>(stop - start).count() <<  " " << average << endl;
     }
 }

@@ -11,7 +11,7 @@ using namespace std::chrono;
 int main () {
     // Запуск ручных тестов
     cout << "-----manual------" << endl;
-    run_manual();
+   // run_manual();
     // Запуск тестов производительности
     cout << "-----speed------" << endl;
      launch_speed_results();
